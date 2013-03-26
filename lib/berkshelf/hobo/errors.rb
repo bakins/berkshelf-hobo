@@ -1,4 +1,4 @@
-require 'hobo/errors'
+require 'vagrant/errors'
 
 module Berkshelf
   # A wrapper for a BerkshelfError for Hobo. All Berkshelf exceptions should be
@@ -9,7 +9,7 @@ module Berkshelf
   #   rescue BerkshelfError => e
   #     HoboWrapperError.new(e)
   #   end
-  class HoboWrapperError < Hobo::Errors::HoboError
+  class HoboWrapperError < Vagrant::Errors::VagrantError
     # @param [BerkshelfError]
     attr_reader :original
 

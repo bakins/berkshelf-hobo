@@ -14,7 +14,7 @@ module Berkshelf
         #
         # @return [::Hobo::Action::Builder]
         def install
-          @install ||= ::Hobo::Action::Builder.new do
+          @install ||= ::Vagrant::Action::Builder.new do
             use Berkshelf::Hobo::Action::SetUI
             use Berkshelf::Hobo::Action::Install
           end
@@ -29,7 +29,7 @@ module Berkshelf
         #
         # @return [::Hobo::Action::Builder]
         def upload
-          @upload ||= ::Hobo::Action::Builder.new do
+          @upload ||= ::Vagrant::Action::Builder.new do
             use Berkshelf::Hobo::Action::SetUI
             use Berkshelf::Hobo::Action::Upload
           end
@@ -41,7 +41,7 @@ module Berkshelf
         #
         # @return [::Hobo::Action::Builder]
         def clean
-          @clean ||= ::Hobo::Action::Builder.new do
+          @clean ||= ::Vagrant::Action::Builder.new do
             use Berkshelf::Hobo::Action::SetUI
             use Berkshelf::Hobo::Action::Clean
           end

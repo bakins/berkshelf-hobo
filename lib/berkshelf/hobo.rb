@@ -1,4 +1,4 @@
-require 'hobo'
+require 'vagrant'
 require 'berkshelf'
 require 'berkshelf/hobo/errors'
 
@@ -57,15 +57,15 @@ module Berkshelf
 
       # Initialize the Berkshelf Hobo middleware stack
       def init!
-        ::Hobo.config_keys.register(:berkshelf) { Berkshelf::Hobo::Config }
+        ::Vagrant.config_keys.register(:berkshelf) { Berkshelf::Hobo::Config }
 
         [ :provision, :start ].each do |action|
-          ::Hobo.actions[action].insert(::Hobo::Action::General::Validate, Berkshelf::Hobo::Action::Validate)
-          ::Hobo.actions[action].insert(::Hobo::Action::VM::Provision, Berkshelf::Hobo::Middleware.install)
-          ::Hobo.actions[action].insert(::Hobo::Action::VM::Provision, Berkshelf::Hobo::Middleware.upload)
+          ::Vagrant.actions[action].insert(::Vagrant::Action::General::Validate, Berkshelf::Hobo::Action::Validate)
+          ::Vagrant.actions[action].insert(::Vagrant::Action::VM::Provision, Berkshelf::Hobo::Middleware.install)
+          ::Vagrant.actions[action].insert(::Vagrant::Action::VM::Provision, Berkshelf::Hobo::Middleware.upload)
         end
 
-        ::Hobo.actions[:destroy].insert(::Hobo::Action::VM::ProvisionerCleanup, Berkshelf::Hobo::Middleware.clean)
+        ::Vagrant.actions[:destroy].insert(::Vagrant::Action::VM::ProvisionerCleanup, Berkshelf::Hobo::Middleware.clean)
       end
     end
   end
