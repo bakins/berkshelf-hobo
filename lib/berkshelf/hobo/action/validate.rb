@@ -14,12 +14,12 @@ module Berkshelf
         end
 
         def call(env)
-          recorder = ::Hobo::Config::ErrorRecorder.new
+          recorder = ::Vagrant::Config::ErrorRecorder.new
           env[:vm].config.berkshelf.validate(env[:vm].env, recorder)
 
           unless recorder.errors.empty?
-            raise ::Hobo::Errors::ConfigValidationFailed,
-              messages: ::Hobo::Util::TemplateRenderer.render("config/validation_failed", errors: { berkshelf: recorder })
+            raise ::Vagrant::Errors::ConfigValidationFailed,
+              messages: ::Vagrant::Util::TemplateRenderer.render("config/validation_failed", errors: { berkshelf: recorder })
           end
 
           @app.call(env)

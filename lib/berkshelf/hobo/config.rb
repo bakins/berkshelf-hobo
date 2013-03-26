@@ -2,7 +2,7 @@ module Berkshelf
   module Hobo
     # @author Jamie Winsor <reset@riotgames.com>
     # @author Andrew Garson <andrew.garson@gmail.com>
-    class Config < ::Hobo::Config::Base
+    class Config < ::Vagrant::Config::Base
       # @return [String]
       #   path to the Berksfile to use with Hobo
       attr_reader :berksfile_path
