@@ -1,5 +1,5 @@
 module Berkshelf
-  module Vagrant
+  module Hobo
     module Action
       # @author Jamie Winsor <reset@riotgames.com>
       # @author Andrew Garson <andrew.garson@gmail.com>
@@ -9,19 +9,19 @@ module Berkshelf
 
         def initialize(app, env)
           @app       = app
-          @shelf     = Berkshelf::Vagrant.shelf_for(env)
+          @shelf     = Berkshelf::Hobo.shelf_for(env)
           @berksfile = Berksfile.from_file(env[:vm].config.berkshelf.berksfile_path)
         end
 
         def call(env)
-          if Berkshelf::Vagrant.chef_solo?(env[:vm].config)
+          if Berkshelf::Hobo.chef_solo?(env[:vm].config)
             configure_cookbooks_path(env)
             install(env)
           end
 
           @app.call(env)
         rescue BerkshelfError => e
-          raise VagrantWrapperError.new(e)
+          raise HoboWrapperError.new(e)
         end
 
         private
@@ -35,7 +35,7 @@ module Berkshelf
           end
 
           def configure_cookbooks_path(env)
-            Berkshelf::Vagrant.provisioners(:chef_solo, env[:vm].config).each do |provisioner|
+            Berkshelf::Hobo.provisioners(:chef_solo, env[:vm].config).each do |provisioner|
               unless provisioner.config.cookbooks_path.is_a?(Array)
                 provisioner.config.cookbooks_path = Array(provisioner.config.cookbooks_path)
               end

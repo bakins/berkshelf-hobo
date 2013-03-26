@@ -1,20 +1,20 @@
 module Berkshelf
-  module Vagrant
+  module Hobo
     # @author Jamie Winsor <reset@riotgames.com>
     # @author Andrew Garson <andrew.garson@gmail.com>
-    class Config < ::Vagrant::Config::Base
+    class Config < ::Hobo::Config::Base
       # @return [String]
-      #   path to the Berksfile to use with Vagrant
+      #   path to the Berksfile to use with Hobo
       attr_reader :berksfile_path
 
       # @return [Array<Symbol>]
       #   only cookbooks in these groups will be installed and copied to
-      #   Vagrant's shelf
+      #   Hobo's shelf
       attr_accessor :only
 
       # @return [Array<Symbol>]
       #   cookbooks in all other groups except for these will be installed
-      #   and copied to Vagrant's shelf
+      #   and copied to Hobo's shelf
       attr_accessor :except
 
       def initialize
@@ -38,7 +38,7 @@ module Berkshelf
           errors.add("A value for berkshelf.empty and berkshelf.only cannot both be defined.")
         end
 
-        if Berkshelf::Vagrant.chef_client?(env.config.global)
+        if Berkshelf::Hobo.chef_client?(env.config.global)
           if Berkshelf::Config.instance.chef.node_name.nil?
             errors.add("A configuration must be set for chef.node_name when using the chef_client provisioner. Run 'berks configure' or edit your configuration.")
           end

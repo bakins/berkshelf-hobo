@@ -1,15 +1,15 @@
-require 'vagrant/errors'
+require 'hobo/errors'
 
 module Berkshelf
-  # A wrapper for a BerkshelfError for Vagrant. All Berkshelf exceptions should be
-  # wrapped in this proxy object so they are properly handled when Vagrant encounters
+  # A wrapper for a BerkshelfError for Hobo. All Berkshelf exceptions should be
+  # wrapped in this proxy object so they are properly handled when Hobo encounters
   # an exception.
   #
-  # @example wrapping an error encountered within the Vagrant plugin
+  # @example wrapping an error encountered within the Hobo plugin
   #   rescue BerkshelfError => e
-  #     VagrantWrapperError.new(e)
+  #     HoboWrapperError.new(e)
   #   end
-  class VagrantWrapperError < Vagrant::Errors::VagrantError
+  class HoboWrapperError < Hobo::Errors::HoboError
     # @param [BerkshelfError]
     attr_reader :original
 

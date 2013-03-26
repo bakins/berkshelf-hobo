@@ -1,8 +1,8 @@
 module Berkshelf
-  module Vagrant
+  module Hobo
     # @author Jamie Winsor <reset@riotgames.com>
     #
-    # Middleware stacks for use with Vagrant
+    # Middleware stacks for use with Hobo
     module Middleware
       class << self
         # Return the Berkshelf install middleware stack. When placed in the action chain
@@ -12,11 +12,11 @@ module Berkshelf
         # Cookbooks will installed into a temporary directory, called a Shelf, and mounted
         # into the VM. This mounted path will be appended to the chef_solo.cookbooks_path value.
         #
-        # @return [::Vagrant::Action::Builder]
+        # @return [::Hobo::Action::Builder]
         def install
-          @install ||= ::Vagrant::Action::Builder.new do
-            use Berkshelf::Vagrant::Action::SetUI
-            use Berkshelf::Vagrant::Action::Install
+          @install ||= ::Hobo::Action::Builder.new do
+            use Berkshelf::Hobo::Action::SetUI
+            use Berkshelf::Hobo::Action::Install
           end
         end
 
@@ -27,11 +27,11 @@ module Berkshelf
         #
         # Nothing will be done if the Chef-Solo provisioner is used.
         #
-        # @return [::Vagrant::Action::Builder]
+        # @return [::Hobo::Action::Builder]
         def upload
-          @upload ||= ::Vagrant::Action::Builder.new do
-            use Berkshelf::Vagrant::Action::SetUI
-            use Berkshelf::Vagrant::Action::Upload
+          @upload ||= ::Hobo::Action::Builder.new do
+            use Berkshelf::Hobo::Action::SetUI
+            use Berkshelf::Hobo::Action::Upload
           end
         end
 
@@ -39,11 +39,11 @@ module Berkshelf
         # this stack will clean up any temporary directories or files created by the other
         # middleware stacks.
         #
-        # @return [::Vagrant::Action::Builder]
+        # @return [::Hobo::Action::Builder]
         def clean
-          @clean ||= ::Vagrant::Action::Builder.new do
-            use Berkshelf::Vagrant::Action::SetUI
-            use Berkshelf::Vagrant::Action::Clean
+          @clean ||= ::Hobo::Action::Builder.new do
+            use Berkshelf::Hobo::Action::SetUI
+            use Berkshelf::Hobo::Action::Clean
           end
         end
       end
